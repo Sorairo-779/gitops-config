@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: clean-app
+  namespace: default
+  labels:
+    app: clean-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: clean-app
+  template:
+    metadata:
+      labels:
+        app: clean-app
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.27-alpine
+        ports:
+        - containerPort: 80
