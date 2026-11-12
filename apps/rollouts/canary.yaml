@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: rollout-canary
+  namespace: default
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: rollout-canary
+  template:
+    metadata:
+      labels:
+        app: rollout-canary
+    spec:
+      containers:
+      - name: demo
+        image: argoproj/rollouts-demo:blue
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+        resources:
+          requests:
+            memory: 32Mi
+            cpu: 10m
+          limits:
+            memory: 64Mi
+            cpu: 100m
+  strategy:
+    canary:
+      steps:
+      - setWeight: 25
+      - pause: {}            # 人工确认点 1（无限暂停）
+      - setWeight: 50
+      - pause: {duration: 30s} # 自动等待 30 秒
+      - setWeight: 100
