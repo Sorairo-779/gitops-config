@@ -1,0 +1,8 @@
+# ~/git-practice/gitops-config/apps/auto-update-demo/kustomization.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - deployment.yaml
+images:
+  - name: localhost:5000/sorario-app
+    newTag: v1.0.0

@@ -1,0 +1,21 @@
+# ~/git-practice/gitops-config/apps/auto-update-demo/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auto-update-demo
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auto-update-demo
+  template:
+    metadata:
+      labels:
+        app: auto-update-demo
+    spec:
+      containers:
+        - name: app
+          # 初始镜像指向本地 registry
+          image: localhost:5000/sorairo-app:v1.0.0
+          imagePullPolicy: Always
