@@ -4,5 +4,5 @@ kind: Kustomization
 resources:
   - deployment.yaml
 images:
-  - name: localhost:5000/sorario-app
+  - name: localhost:5000/sorairo-app
     newTag: v1.0.0
